@@ -16,13 +16,16 @@ set(system_include ${SYSTEM_PATH}/include)
 
 file(GLOB_RECURSE hal_source CONFIGURE_DEPENDS ${HAL_PATH}/Src/*.c ${HAL_PATH}/Src/Legacy/*.c)
 list(FILTER hal_source EXCLUDE REGEX ".*template\\.c$")
-
 set(hal_include ${HAL_PATH}/Inc ${HAL_PATH}/Inc/Legacy)
 
-add_library(system ${system_source} ${hal_source} ${STARTUP_FILE_PATH})
-target_include_directories(system PUBLIC ${system_include} ${hal_include})
+add_library(hal ${hal_source})
+target_include_directories(hal PUBLIC ${hal_include} ${system_include})
+# Don't look up for warnings - compile options and defines as PRIVATE.
+target_compile_definitions(hal PRIVATE ${COMPILER_DEFINES})
+target_compile_options(hal PRIVATE ${CPU_OPTIONS} ${COMPILER_OPTIONS})
 
-# Add compiler definitions, avoid using -D on target_compile_options.
+add_library(system ${system_source} ${STARTUP_FILE_PATH})
+target_include_directories(system PUBLIC ${system_include} ${hal_include})
+# Throw an error per warning - compile options and defines as PUBLIC.
 target_compile_definitions(system PUBLIC ${COMPILER_DEFINES})
-# Add compiler options
-target_compile_options(system PUBLIC ${CPU_OPTIONS} ${COMPILER_OPTIONS})
+target_compile_options(system PUBLIC ${CPU_OPTIONS} -Wall -Wextra -Werror ${COMPILER_OPTIONS})

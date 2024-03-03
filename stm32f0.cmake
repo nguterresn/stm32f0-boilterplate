@@ -1,34 +1,14 @@
 #### -------------- COMPILER -------------- ####
 
-set(CPU_OPTIONS
-  -mcpu=cortex-m0
-  -mfloat-abi=soft
-)
-
 set(COMPILER_OPTIONS
-  -Wall
-  -Wextra
+  -Og # Optimized for debugging!
+  -g3 # Max level of debug!
 )
-
-if(CMAKE_BUILD_TYPE STREQUAL "Release")
-  set(COMPILER_OPTIONS
-    ${COMPILER_OPTIONS}
-    -Os
-  )
-else()
-  # Anything not release will be considered Debug
-  set(COMPILER_OPTIONS
-    ${COMPILER_OPTIONS}
-    -Og # Optimized for debugging!
-    -g3 # Max level of debug!
-    -ggdb
-  )
-endif()
 
 # Preprocessor defines!
 set(COMPILER_DEFINES
   "USE_HAL_DRIVER"
-  "STM32F030x8"
+  ${STM_DEFINE}
 )
 
 #### -------------- LINKER -------------- ####
@@ -36,9 +16,14 @@ set(COMPILER_DEFINES
 set(LINKER_OPTIONS
   --specs=nosys.specs
   -mthumb
+
+  ## -- MATH LIBRARY START -- ##
   -Wl,--start-group
   -lc
   -lm
   -Wl,--end-group
+  ## -- MATH LIBRARY END -- ##
+
+  # Print memory usage - flash, ram, etc
   -Wl,--print-memory-usage
 )
