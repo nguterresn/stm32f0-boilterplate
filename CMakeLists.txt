@@ -15,8 +15,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(APPLICATION_PATH           ${CMAKE_CURRENT_SOURCE_DIR}/application)
 set(SYSTEM_PATH                ${CMAKE_CURRENT_SOURCE_DIR}/system)
 
-# Specific to a type of microcontroller.
-## -- Change according to your STM32 -- ##
+## -------------- Change according to your STM32 -------------- ##
 
 set(HAL_PATH                   ${CMAKE_CURRENT_SOURCE_DIR}/stm32f0xx_hal_driver)
 set(LD_FILE_PATH               ${SYSTEM_PATH}/STM32F030R8TX_FLASH.ld)
@@ -25,7 +24,7 @@ set(CPU_OPTIONS                -mcpu=cortex-m0 -mfloat-abi=soft)
 set(STM_DEFINE                 STM32F030x8)
 include(stm32f0.cmake)         # File that includes the options and definitions
 
-## ------------------------------------ ##
+## ------------------------------------------------------------ ##
 
 add_subdirectory(${SYSTEM_PATH})
 
