@@ -1,4 +1,5 @@
 #include "pin_list.h"
+#include "string.h"
 #include "stm32f0xx_hal.h"
 
 UART_HandleTypeDef huart2;
@@ -24,9 +25,12 @@ int main(void)
 	MX_USART2_UART_Init();
 	HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
 
+	char heartbeat[] = "Heartbeat.\n";
+
 	while (1) {
 		HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-		HAL_Delay(300);
+		HAL_UART_Transmit(&huart2, (uint8_t*)heartbeat, strlen(heartbeat), 100);
+		HAL_Delay(1000);
 	}
 }
 
@@ -76,7 +80,7 @@ void SystemClock_Config(void)
 static void MX_USART2_UART_Init(void)
 {
 	huart2.Instance                    = USART2;
-	huart2.Init.BaudRate               = 38400;
+	huart2.Init.BaudRate               = 115200;
 	huart2.Init.WordLength             = UART_WORDLENGTH_8B;
 	huart2.Init.StopBits               = UART_STOPBITS_1;
 	huart2.Init.Parity                 = UART_PARITY_NONE;
