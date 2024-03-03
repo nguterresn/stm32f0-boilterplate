@@ -20,10 +20,14 @@ int main(void)
   SystemClock_Config();
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
   MX_USART2_UART_Init();
-  
+  HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+
   while (1)
   {
+    HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+    HAL_Delay(1000);
   }
 }
 
