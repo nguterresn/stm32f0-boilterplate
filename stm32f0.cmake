@@ -1,10 +1,5 @@
 #### -------------- COMPILER -------------- ####
 
-set(COMPILER_OPTIONS
-  -Og # Optimized for debugging!
-  -g3 # Max level of debug!
-)
-
 # Preprocessor defines!
 set(COMPILER_DEFINES
   "USE_HAL_DRIVER"

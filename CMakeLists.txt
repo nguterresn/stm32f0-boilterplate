@@ -49,7 +49,7 @@ add_library(hal ${hal_source})
 target_include_directories(hal PUBLIC ${hal_include} ${system_include})
 # Don't look up for warnings - compile options and defines as PRIVATE.
 target_compile_definitions(hal PRIVATE ${COMPILER_DEFINES})
-target_compile_options(hal PRIVATE ${CPU_OPTIONS} ${COMPILER_OPTIONS})
+target_compile_options(hal PRIVATE ${CPU_OPTIONS})
 
 # Application
 
@@ -61,7 +61,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${application_include})
 target_link_libraries(${PROJECT_NAME} hal)
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE ${COMPILER_DEFINES})
-target_compile_options(${PROJECT_NAME} PRIVATE ${CPU_OPTIONS} -Wall -Wextra -Werror ${COMPILER_OPTIONS})
+target_compile_options(${PROJECT_NAME} PRIVATE ${CPU_OPTIONS} -Wall -Wextra -Werror)
 
 target_link_options(${PROJECT_NAME} PRIVATE ${CPU_OPTIONS} -T${LD_FILE_PATH} -Wl,-Map=${PROJECT_NAME}.map ${LINKER_OPTIONS})
 
