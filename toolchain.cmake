@@ -1,6 +1,10 @@
 set(CMAKE_SYSTEM_NAME               Generic)
 set(CMAKE_SYSTEM_PROCESSOR          arm)
 
+set(CMAKE_C_STANDARD                99)
+set(CMAKE_C_STANDARD_REQUIRED       ON)
+set(CMAKE_C_EXTENSIONS              ON)
+
 # Some default GCC settings
 # arm-none-eabi- must be part of path environment
 set(TOOLCHAIN_PREFIX                arm-none-eabi-)
